@@ -4,12 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity(name = "CATEGORIA")
 public class Categoria {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	private Integer id;
+	
+	@Column(name = "NOME")
 	private String nome;
+	
+	@Column(name = "DESCRICAO")
 	private String descricao;
-
+	
+	@OneToMany(mappedBy = "CATEGORIA")
 	private List<Livro> livros = new ArrayList<>();
 
 	public Categoria() {

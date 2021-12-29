@@ -1,13 +1,35 @@
 package com.pedro.bookstore.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Livro {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+@Entity(name = "LIVRO")
+public class Livro implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Column(name = "NOME")
 	private String nome;
+	
+	@Column(name = "TEXTO")
 	private String texto;
-
+	
+	@ManyToOne()
+	@JoinColumn(name = "CATEGORIA_ID")
+	@Column(name = "CATEGORIA")
 	private Categoria categoria;
 
 	public Livro() {
