@@ -42,4 +42,9 @@ public class CategoriaService {
 		
 		return categoriaRepository.save(categoria);
 	}
+
+	public void delete(Integer id) {
+		findById(id);
+		categoriaRepository.deleteById(id);
+	}
 }

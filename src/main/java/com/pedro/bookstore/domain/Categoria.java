@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +22,7 @@ public class Categoria implements Serializable {
 	private Integer id;
 	private String nome;
 	private String descricao;
-	@OneToMany(mappedBy = "categoria")
+	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
 	private List<Livro> livros = new ArrayList<>();
 
 	public Categoria() {
