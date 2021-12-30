@@ -21,7 +21,7 @@ public class CategoriaService {
 	public Categoria findById(Integer id) {
 		Optional<Categoria> optionalCategoria = categoriaRepository.findById(id);
 		return optionalCategoria.orElseThrow(() -> new ObjectNotFoundException(
-				"Categoria não encontrada! Id: " + id + ", categoria: " + Categoria.class.getName()));
+				"Categoria não encontrada! Id: " + id + ". Tipo: " + Categoria.class.getName()));
 	}
 	
 	public List<Categoria> findAll() {
@@ -49,7 +49,7 @@ public class CategoriaService {
 		try {
 			categoriaRepository.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityViolationException("Categoria não pode ser deletada! Possui livros associados.");
+			throw new DataIntegrityViolationException("Categoria não pode ser deletada! Existem livros associados.");
 		}
 	}
 }
