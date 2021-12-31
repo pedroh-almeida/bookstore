@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,14 +38,13 @@ public class CategoriaResource {
 	@GetMapping
 	public ResponseEntity<List<CategoriaDto>> findAll() {
 		List<Categoria> categorias = categoriaService.findAll();
-		
 		List<CategoriaDto> categoriasDto = categorias.stream().map(obj -> new CategoriaDto(obj)).collect(Collectors.toList());
 		
 		return ResponseEntity.ok().body(categoriasDto);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Categoria> create(@RequestBody Categoria categoria) {
+	public ResponseEntity<Categoria> create(@Valid @RequestBody Categoria categoria) {
 		categoria = categoriaService.create(categoria);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId()).toUri();
 		
@@ -51,7 +52,7 @@ public class CategoriaResource {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<CategoriaDto> update(@PathVariable Integer id, @RequestBody CategoriaDto categoriaDto) {
+	public ResponseEntity<CategoriaDto> update(@PathVariable Integer id, @Valid @RequestBody CategoriaDto categoriaDto) {
 		Categoria categoria = categoriaService.update(id, categoriaDto);
 		
 		return ResponseEntity.ok().body(new CategoriaDto(categoria));
